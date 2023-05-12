@@ -19,18 +19,22 @@ int main(void)
 			printf("Jeff$ ");
 		n_chars = getline(&read, &n, stdin);
 		if (n_chars == -1)
-			return (1);
-		if (_strcmp(read, "exit\n"))
 		{
-			printf("Shutting down...\n");
-			sleep(1);
-			break;
+			printf("\n");
+			return (1);
+		}
+		if (_strcmp(read, "exit\n") || _strcmp(read, "env\n"))
+		{
+			if (_strcmp(read, "exit\n"))
+				break;
+			print_env();
+			continue;
 		}
 		args = tokenise(read);
 		stringexe = fix_path(args[0]);
 		if (stat(stringexe, &st) == -1)
 		{
-			printf("Error! File not found\n");
+			printf("%s: 1: %s: not found\n", args[0], read);
 			continue;
 		}
 		i = fork();
@@ -39,10 +43,8 @@ int main(void)
 		else
 			wait(&swait);
 	}
-
 	free(read);
-	if (args == NULL)
-		return (0);
-	free(args);
+	if (args != NULL)
+		free(args);
 	return (0);
 }
