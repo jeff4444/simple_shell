@@ -4,17 +4,19 @@
  *
  * Return: 0 (Success)
  */
-int main(void)
+int main(int argc, char *argv[])
 {
 	char *read = NULL, **args = NULL, *stringexe;
 	size_t n = 0;
 	ssize_t n_chars = 0;
 	pid_t i;
-	int swait;
+	int swait, count = 0;
 	struct stat st;
 
+	(void)argc;
 	while (1)
 	{
+		count++;
 		if (isatty(STDIN_FILENO))
 			printf("Jeff$ ");
 		n_chars = getline(&read, &n, stdin);
@@ -34,7 +36,7 @@ int main(void)
 		stringexe = fix_path(args[0]);
 		if (stat(stringexe, &st) == -1)
 		{
-			printf("%s: 1: %s: not found\n", args[0], read);
+			printf("%s: %d: %s: not found\n", argv[0], count, read);
 			continue;
 		}
 		i = fork();

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include "test.h"
 int main(int argc, char *argv[])
 {
 	size_t i = 0;
@@ -9,7 +10,7 @@ int main(int argc, char *argv[])
 
 	argc = 0;
 	printf("$ ");
-	getline(&s, &i, stdin);
+	_getline(&s, &i, STDIN_FILENO);
 
 	token = strtok(s, " ");
 	while (token)
