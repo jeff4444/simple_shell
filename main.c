@@ -22,7 +22,8 @@ int main(int argc, char *argv[])
 		n_chars = getline(&read, &n, stdin);
 		if (n_chars == -1)
 		{
-			printf("\n");
+			if (isatty(STDIN_FILENO))
+				printf("\n");
 			return (1);
 		}
 		if (_strcmp(read, "exit\n") || _strcmp(read, "env\n"))
