@@ -1,12 +1,12 @@
 #include "main.h"
 /**
  * print_env - prints current environment
+ * @envp: environment variables
  */
-extern char **environ;
-void print_env(void)
+void print_env(char **envp)
 {
 	int i = 0;
 
-	while (environ[i])
-		printf("%s\n", environ[i++]);
+	while (envp[i])
+		printf("%s\n", envp[i++]);
 }
