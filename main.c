@@ -70,9 +70,12 @@ int get_user_input(char **input)
  * @input: input
  * @args: command line arguments
  * @envp: environment variables
+ * @argv: name of command used to run program
+ * @count: how many times the program has run
  * Return: 1 (Found) -1 (Not found)
  */
-int handle_builtin_cmds(char *input, char **args, char **envp, char *argv, int count)
+int handle_builtin_cmds(char *input, char **args, char **envp,
+		char *argv, int count)
 {
 	int a;
 	char **endptr = NULL;
