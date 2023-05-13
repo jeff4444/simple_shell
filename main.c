@@ -21,7 +21,7 @@ int main(int argc, char *argv[], char **envp)
 		if (!get_user_input(&read))
 			break;
 		args = tokenise(read);
-		built = handle_builtin_cmds(read, args, envp);
+		built = handle_builtin_cmds(read, args, envp, argv[0], count);
 		if (built == 1)
 			continue;
 		stringexe = fix_path(args[0]);
@@ -55,7 +55,7 @@ int get_user_input(char **input)
 
 	if (isatty(STDIN_FILENO))
 		printf("Jeff$ ");
-	n_chars = getline(input, &n, stdin);
+	n_chars = _getline(input, &n, stdin);
 	if (n_chars == -1)
 	{
 		if (isatty(STDIN_FILENO))
@@ -72,7 +72,7 @@ int get_user_input(char **input)
  * @envp: environment variables
  * Return: 1 (Found) -1 (Not found)
  */
-int handle_builtin_cmds(char *input, char **args, char **envp)
+int handle_builtin_cmds(char *input, char **args, char **envp, char *argv, int count)
 {
 	int a;
 	char **endptr = NULL;
@@ -86,7 +86,7 @@ int handle_builtin_cmds(char *input, char **args, char **envp)
 		a = strtod(args[1], endptr);
 		if (a == 0)
 		{
-			printf("Error! Exit status has to be a number\n");
+			printf("%s: %d: %s: Illegal number: %s\n", argv, count, input, args[1]);
 			return (1);
 		}
 		exit(a);

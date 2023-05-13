@@ -3,6 +3,7 @@
  * execute_command - executes a command after fixing it
  * @args: arguments
  * @stringexe: executable file
+ * @envp: environment variables
  *
  * Return: void
  */

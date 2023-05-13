@@ -16,5 +16,6 @@ char *string_add(void);
 char *fix_path(char *filename);
 void print_env(char **envp);
 int get_user_input(char **input);
-int handle_builtin_cmds(char *input, char **args, char **envp);
+int handle_builtin_cmds(char *input, char **args, char **envp, char *argv, int count);
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 #endif
