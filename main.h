@@ -9,12 +9,14 @@
 #include <sys/stat.h>
 /**
  * struct Path - a linked list of the PATH directories
+ * @name: dir name
+ * @next: next dir
  */
 typedef struct Path
 {
 	char *name;
 	struct Path *next;
-}
+} path_t;
 int _strcmp(char *s1, char *s2);
 char **tokenise(char *s);
 void execute_command(char **args, char *stringexe, char **envp);
