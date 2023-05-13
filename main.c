@@ -32,7 +32,7 @@ int main(int argc, char *argv[], char **envp)
 		}
 		i = fork();
 		if (i == 0)
-			execute_command(args, stringexe);
+			execute_command(args, stringexe, envp);
 		else
 			wait(&swait);
 	}

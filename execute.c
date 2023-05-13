@@ -6,9 +6,9 @@
  *
  * Return: void
  */
-void execute_command(char **args, char *stringexe)
+void execute_command(char **args, char *stringexe, char **envp)
 {
-	if (execve(stringexe, args, NULL) == -1)
+	if (execve(stringexe, args, envp) == -1)
 	{
 		perror("Error!");
 		exit(1);

@@ -9,7 +9,7 @@
 #include <sys/stat.h>
 int _strcmp(char *s1, char *s2);
 char **tokenise(char *s);
-void execute_command(char **args, char *stringexe);
+void execute_command(char **args, char *stringexe, char **envp);
 int checkexe(char *s);
 char *_strcat(char *s1, char *s2);
 char *string_add(void);
