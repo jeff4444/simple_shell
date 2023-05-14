@@ -13,8 +13,12 @@ char **tokenise(char *s)
 	int j;
 
 	s_copy = malloc(sizeof(s));
+	if (s_copy == NULL)
+		return (NULL);
 	strcpy(s_copy, s);
 	token = strtok(s_copy, " ");
+	if (token == NULL)
+		return (NULL);
 
 	while (token)
 	{
@@ -33,6 +37,8 @@ char **tokenise(char *s)
 			if (token[j] == '\n')
 				token[j] = '\0';
 			j++;
+			if (_strcmp(token, ""))
+				return (NULL);
 		}
 		args[i] = malloc(sizeof(token));
 		args[i++] = token;

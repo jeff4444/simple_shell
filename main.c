@@ -21,6 +21,8 @@ int main(int argc, char *argv[], char **envp)
 		if (!get_user_input(&read))
 			break;
 		args = tokenise(read);
+		if (args == NULL)
+			continue;
 		built = handle_builtin_cmds(read, args, envp, argv[0], count);
 		if (built == 1)
 			continue;

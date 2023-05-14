@@ -10,11 +10,13 @@
 /**
  * struct Path - a linked list of the PATH directories
  * @name: dir name
+ * @value: vlue
  * @next: next dir
  */
 typedef struct Path
 {
 	char *name;
+	char *value = getenv(name);
 	struct Path *next;
 } path_t;
 int _strcmp(char *s1, char *s2);
