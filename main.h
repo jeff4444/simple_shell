@@ -7,6 +7,7 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+int handle_cd(char **args);
 int _strcmp(char *s1, char *s2);
 char **tokenise(char *s);
 void execute_command(char **args, char *stringexe, char **envp);

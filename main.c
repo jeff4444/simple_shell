@@ -106,5 +106,12 @@ int handle_builtin_cmds(char *input, char **args, char **envp,
 		print_env(envp);
 		return (1);
 	}
+	else if (_strcmp(input, "cd"))
+	{
+		a = handle_cd(args);
+		if (a)
+			printf("%s: %d: cd: can't cd to %s\n", argv, count, args[1]);
+		return (1);
+	}
 	return (-1);
 }
