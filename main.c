@@ -23,6 +23,8 @@ int main(int argc, char *argv[], char **envp)
 		args = tokenise(read);
 		if (args == NULL)
 			continue;
+		printf("Going in\n");
+		fflush(stdout);
 		built = handle_builtin_cmds(read, args, envp, argv[0], count);
 		if (built == 1)
 			continue;
