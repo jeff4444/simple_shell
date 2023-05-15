@@ -98,6 +98,11 @@ int handle_builtin_cmds(char *input, char **args, char **envp,
 	}
 	else if (_strcmp(input, "env"))
 	{
+		if (args[1] != NULL)
+		{
+			printf("env: '%s': No such file or directory\n", args[1]);
+			return (1);
+		}
 		print_env(envp);
 		return (1);
 	}
