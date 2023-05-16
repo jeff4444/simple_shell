@@ -7,10 +7,8 @@
  */
 int handle_cd(char **args)
 {
-	char *dir = args[1], *backslash = malloc(2);
-	int i;
-	char cwd[1024];
-	char *oldpwd;
+	char *dir = args[1], *backslash = malloc(2), *oldpwd, cwd[1024];
+	int i, a;
 
 	if (backslash == NULL)
 	{
@@ -43,11 +41,10 @@ int handle_cd(char **args)
 	if (i == -1)
 		return (1);
 	i = setenv("PWD", dir, 1);
-	if (i == -1)
-		printf("Error");
-	i = setenv("OLDPWD", oldpwd, 1);
-	if (i == -1)
+	a = setenv("OLDPWD", oldpwd, 1);
+	if (i == -1 || a == -1)
 		printf("Error");
 	free(backslash);
 	return (0);
 }
+

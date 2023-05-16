@@ -8,7 +8,7 @@
 
 char **tokenise(char *s)
 {
-	char *token, **args, *s_copy;
+	char *token, **args = malloc(512), *s_copy;
 	size_t i = 0;
 	int j;
 
@@ -26,7 +26,6 @@ char **tokenise(char *s)
 		token = strtok(NULL, " ");
 	}
 
-	args = malloc(i + 1);
 	i = 0;
 	token = strtok(s, " ");
 	while (token)

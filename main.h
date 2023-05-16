@@ -20,4 +20,6 @@ int get_user_input(char **input);
 int handle_builtin_cmds(char *input, char **args, char **envp,
 		char *argv, int count);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
+int _setenv(const char *name, const char *value, int overwrite);
+int _unsetenv(char *name);
 #endif
