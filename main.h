@@ -7,7 +7,19 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-int handle_cd(char **args);
+#define UNUSED(x) (void)(x)
+/**
+ * struct Builtin - built ins
+ * @name: name of built in
+ * @func: function to be called
+ */
+typedef struct Builtin
+{
+	char *name;
+	int (*func)(char **, char **, char *, int);
+} built_in;
+int handle_exit(char **args, char **envp, char *argv, int count);
+int handle_cd(char **args, char **envp, char *argv, int count);
 int _strcmp(char *s1, char *s2);
 char **tokenise(char *s);
 void execute_command(char **args, char *stringexe, char **envp);
@@ -15,11 +27,11 @@ int checkexe(char *s);
 char *_strcat(char *s1, char *s2);
 char *string_add(void);
 char *fix_path(char *filename);
-void print_env(char **envp);
+int print_env(char **args, char **envp, char *argv, int count);
 int get_user_input(char **input);
 int handle_builtin_cmds(char *input, char **args, char **envp,
 		char *argv, int count);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
-int _setenv(const char *name, const char *value, int overwrite);
-int _unsetenv(char *name);
+int _setenv(char **args, char **envp, char *argv, int count);
+int _unsetenv(char **args, char **envp, char *argv, int count);
 #endif

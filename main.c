@@ -79,46 +79,15 @@ int get_user_input(char **input)
 int handle_builtin_cmds(char *input, char **args, char **envp,
 		char *argv, int count)
 {
-	int a = 1001;
-	char **endptr = NULL;
+	int i;
 
-	if (_strcmp(input, "exit"))
-	{
-		if ((_strcmp(input, "exit") && args[1] == NULL) || _strcmp(args[1], "0"))
-			exit(0);
-		a = strtod(args[1], endptr);
-		if (a == 0)
-		{
-			printf("%s: %d: %s: Illegal number: %s\n", argv, count, input, args[1]);
-		}
-		exit(a);
-	}
-	else if (_strcmp(input, "env"))
-	{
-		if (args[1] != NULL)
-			printf("env: '%s': No such file or directory\n", args[1]);
-		a = 1;
-		print_env(envp);
-	}
-	else if (_strcmp(input, "cd"))
-	{
-		a = handle_cd(args);
-		if (a)
-			printf("%s: %d: cd: can't cd to %s\n", argv, count, args[1]);
-	}
-	else if (_strcmp(input, "setenv"))
-	{
-		a = _setenv(args[1], args[2], 1);
-		if (a == -1)
-			printf("Error: can't set");
-	}
-	else if (_strcmp(input, "unsetenv"))
-	{
-		a = _unsetenv(args[1]);
-		if (a == -1)
-			printf("Error");
-	}
-	if (a == 1001)
-		return (-1);
-	return (1);
+	built_in built_ins[] = {
+		{"exit", handle_exit}, {"env", print_env}, {"cd", handle_cd},
+		{"setenv", _setenv}, {"unsetenv", _unsetenv}, {NULL, NULL}
+	};
+
+	for (i = 0; built_ins[i].name != NULL; i++)
+		if (_strcmp(input, built_ins[i].name))
+			return (built_ins[i].func(args, envp, argv, count));
+	return (-1);
 }
