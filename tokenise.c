@@ -28,11 +28,6 @@ char **tokenise(char *s)
 		token = strtok(NULL, " ");
 	}
 	args = malloc((i + 1) * sizeof(char *));
-	if (args == NULL)
-	{
-		free(s_copy);
-		return (NULL);
-	}
 	i = 0;
 	token = strtok(s, " ");
 	while (token)

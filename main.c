@@ -8,7 +8,7 @@
  */
 int main(int argc, char *argv[], char **envp)
 {
-	char *read = NULL, **args = NULL, *stringexe, *ptr;
+	char *read = NULL, **args = NULL, *stringexe;
 	pid_t i;
 	int swait, count = 0;
 	struct stat st;
@@ -23,24 +23,7 @@ int main(int argc, char *argv[], char **envp)
 		args = tokenise(read);
 		if (args == NULL)
 			continue;
-		while (args[n])
-		{
-			if (args[n][0] == '$')
-			{
-				if ((args[n][1] == '$') && args[n][2] == '\0')
-				{
-					printf("%u\n", getpid());
-					n = 100;
-					break;
-				}
-				else
-				{
-					ptr = &args[n][1];
-					strcpy(args[n], getenv(ptr));
-				}
-			}
-			n++;
-		}
+		args = replace(args, &n);
 		if (n == 100)
 		{
 			n = 0;

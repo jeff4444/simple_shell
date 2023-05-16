@@ -18,6 +18,7 @@ typedef struct Builtin
 	char *name;
 	int (*func)(char **, char **, char *, int);
 } built_in;
+char **replace(char **args, int *i);
 int handle_exit(char **args, char **envp, char *argv, int count);
 int handle_cd(char **args, char **envp, char *argv, int count);
 int _strcmp(char *s1, char *s2);
