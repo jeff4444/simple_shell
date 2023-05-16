@@ -30,6 +30,11 @@ int handle_cd(char **args, char **envp, char *argv, int count)
 		printf("%s\n", dir);
 		i = chdir(dir);
 	}
+	else if (_strcmp(dir, "~"))
+	{
+		dir = getenv("HOME");
+		i = chdir(dir);
+	}
 	else
 	{
 		i = chdir(dir);

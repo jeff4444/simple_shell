@@ -63,7 +63,7 @@ int get_user_input(char **input)
 	char buf[1024];
 
 	if (isatty(STDIN_FILENO))
-		printf("root@%s:%s$ ", getenv("HOSTNAME"), getcwd(buf, sizeof(buf)));
+		printf("Jeff@%s:%s$ ", getenv("HOSTNAME"), getcwd(buf, sizeof(buf)));
 	n_chars = _getline(input, &n, stdin);
 	if (n_chars == -1)
 	{
