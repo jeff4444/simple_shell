@@ -8,11 +8,11 @@
  */
 int main(int argc, char *argv[], char **envp)
 {
-	char *read = NULL, **args = NULL, *stringexe;
+	char *read = NULL, **args = NULL, *stringexe, *ptr;
 	pid_t i;
 	int swait, count = 0;
 	struct stat st;
-	int built;
+	int built, n = 0;
 
 	(void)argc;
 	while (1)
@@ -23,6 +23,29 @@ int main(int argc, char *argv[], char **envp)
 		args = tokenise(read);
 		if (args == NULL)
 			continue;
+		while (args[n])
+		{
+			if (args[n][0] == '$')
+			{
+				if ((args[n][1] == '$') && args[n][2] == '\0')
+				{
+					printf("%u\n", getpid());
+					n = 100;
+					break;
+				}
+				else
+				{
+					ptr = &args[n][1];
+					strcpy(args[n], getenv(ptr));
+				}
+			}
+			n++;
+		}
+		if (n == 100)
+		{
+			n = 0;
+			continue;
+		}
 		built = handle_builtin_cmds(read, args, envp, argv[0], count);
 		if (built == 1)
 			continue;
