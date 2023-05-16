@@ -60,9 +60,10 @@ int get_user_input(char **input)
 {
 	ssize_t n_chars;
 	size_t n = 0;
+	char buf[1024];
 
 	if (isatty(STDIN_FILENO))
-		printf("Jeff$ ");
+		printf("root@%s:%s$ ", getenv("HOSTNAME"), getcwd(buf, sizeof(buf)));
 	n_chars = _getline(input, &n, stdin);
 	if (n_chars == -1)
 	{
