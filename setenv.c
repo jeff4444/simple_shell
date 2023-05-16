@@ -18,7 +18,7 @@ int _setenv(char **args, char **envp, char *argv, int count)
 	UNUSED(count);
 	if (name == NULL || value == NULL || name[0] == '\0')
 	{
-		printf("Error");
+		printf("Error\n");
 		return (1);
 	}
 	init_value = getenv(name);
@@ -33,9 +33,12 @@ int _setenv(char **args, char **envp, char *argv, int count)
 	init_name = strcat(init_name, "=");
 	output = strcat(init_name, value);
 	if (!init_value || overwrite)
+	{
+		printf(": %s\n", output);
 		i = putenv(output);
+	}
 	if (i)
-		printf("Error");
+		printf("Error\n");
 
 	return (1);
 }
@@ -59,12 +62,12 @@ int _unsetenv(char **args, char **envp, char *argv, int count)
 	UNUSED(count);
 	if (name == NULL || name[0] == '\0')
 	{
-		printf("Error");
+		printf("Error\n");
 		return (1);
 	}
 	strcat(name, "=");
 	i = putenv(name);
 	if (i)
-		printf("Error");
+		printf("Error\n");
 	return (1);
 }

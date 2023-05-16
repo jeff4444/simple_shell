@@ -8,8 +8,8 @@
 
 char **tokenise(char *s)
 {
-	char *token, **args = malloc(512), *s_copy;
-	size_t i = 0;
+	char *token, **args, *s_copy;
+	int i = 0;
 	int j;
 
 	s_copy = malloc(sizeof(s));
@@ -18,14 +18,21 @@ char **tokenise(char *s)
 	strcpy(s_copy, s);
 	token = strtok(s_copy, " ");
 	if (token == NULL)
+	{
+		free(s_copy);
 		return (NULL);
-
+	}
 	while (token)
 	{
 		i++;
 		token = strtok(NULL, " ");
 	}
-
+	args = malloc((i + 1) * sizeof(char *));
+	if (args == NULL)
+	{
+		free(s_copy);
+		return (NULL);
+	}
 	i = 0;
 	token = strtok(s, " ");
 	while (token)
@@ -36,13 +43,13 @@ char **tokenise(char *s)
 			if (token[j] == '\n')
 				token[j] = '\0';
 			j++;
-			if (_strcmp(token, ""))
-				return (NULL);
 		}
-		args[i] = malloc(sizeof(token));
-		args[i++] = token;
+		args[i] = malloc(sizeof(char) * (j + 1));
+		strcpy(args[i++], token);
 		token = strtok(NULL, " ");
 	}
 	args[i] = NULL;
+	free(s_copy);
+	free(token);
 	return (args);
 }

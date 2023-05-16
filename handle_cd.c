@@ -10,17 +10,10 @@
  */
 int handle_cd(char **args, char **envp, char *argv, int count)
 {
-	char *dir = malloc(sizeof(args[1])), *backslash = malloc(2), *oldpwd, cwd[1024];
+	char *dir = malloc(sizeof(args[1])), *oldpwd, cwd[1024], *use;
 	int i, j, k;
 
 	UNUSED(envp);
-	if (backslash == NULL)
-	{
-		perror("Error: Not enough space\n");
-		return (1);
-	}
-	backslash[0] = '/';
-	backslash[1] = '\0';
 	strcpy(dir, args[1]);
 	if (!getcwd(cwd, sizeof(cwd)))
 		perror("Failed to get Path\n");
@@ -34,24 +27,26 @@ int handle_cd(char **args, char **envp, char *argv, int count)
 	else if (_strcmp(dir, "-"))
 	{
 		dir = getenv("OLDPWD");
+		printf("%s\n", dir);
 		i = chdir(dir);
 	}
 	else
 	{
 		i = chdir(dir);
-		dir = strcat(backslash, dir);
-		dir = strcat(cwd, dir);
+		use = strcat(cwd, "/");
+		dir = strcat(use, dir);
+	}
+	if (i == -1)
+	{
+		printf("%s: %d: cd: can't cd to %s\n", argv, count, args[1]);
+		return (1);
 	}
 	if (_strcmp(args[1], "..") || _strcmp(args[1], "."))
 		j = setenv("PWD", getcwd(cwd, sizeof(cwd)), 1);
 	else
 		j = setenv("PWD", dir, 1);
 	k = setenv("OLDPWD", oldpwd, 1);
-	if (i == -1)
-		printf("%s: %d: cd: can't cd to %s\n", argv, count, args[1]);
 	if (j == -1 || k == -1)
 		printf("Error");
-	free(backslash);
 	return (1);
 }
-
