@@ -1,14 +1,27 @@
 #include "main.h"
-char *_strcat(char *s1, char *s2)
+/**
+ * _strcat - concatentes two strings
+ * @dest: First string
+ * @src: second string
+ * Return: concatenated string
+ */
+char *_strcat(char *dest, char *src)
 {
-	int len = strlen(s1) + strlen(s2) + 1;
-	char *s = malloc(sizeof(char) * len);
-	int i = 0, j = 0;
+	int i, j;
 
-	while (s1[i] != '\0')
-		s[i] = s1[i];
-	while (s2[j] != '\0')
-		s[i++] = s2[j++];
-	s[i] = '\0';
-	return (s);
+	i = 0;
+	j = 0;
+
+	while (dest[i] != '\0')
+	{
+		i++;
+	}
+	while (src[j] != '\0')
+	{
+		dest[i] = src[j];
+		i++;
+		j++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }
