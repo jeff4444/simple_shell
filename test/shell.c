@@ -13,7 +13,6 @@ int main(int argc, char *argv[], char **envp)
 	int count = 0, swait;
 	struct stat st;
 
-	(void)argv;
 	(void)argc;
 
 	while (1)
@@ -24,15 +23,17 @@ int main(int argc, char *argv[], char **envp)
 		args = tokenise(read);
 		if (args == NULL)
 			continue;
+		if (_strcmp(args[0], "exit"))
+			handle_exit(args, argv, envp);
 		stringexe = fix_path(args[0]);
 		if (stat(stringexe, &st) == -1)
 		{
-			/* error here */
+			perror(argv[0]);
 			continue;
 		}
 		i = fork();
 		if (i == 0)
-			execute_command(args, stringexe, envp);
+			execute_command(args, stringexe, envp, argv);
 		else
 			wait(&swait);
 	}
