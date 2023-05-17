@@ -18,6 +18,7 @@ int main(int argc, char *argv[], char **envp)
 	while (1)
 	{
 		count++;
+		free(args);
 		if (!get_user_input(&read))
 			break;
 		args = tokenise(read);

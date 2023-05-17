@@ -33,10 +33,7 @@ int _setenv(char **args, char **envp, char *argv, int count)
 	init_name = strcat(init_name, "=");
 	output = strcat(init_name, value);
 	if (!init_value || overwrite)
-	{
-		printf(": %s\n", output);
 		i = putenv(output);
-	}
 	if (i)
 		printf("Error\n");
 
