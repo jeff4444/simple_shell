@@ -1,11 +1,11 @@
 #include "main.h"
+
 /**
- * tokenise - tokenises the read line
+ * tokenise_and_parse - tokenises the read line
  * @s: read line
  *
  * Return: array of args
  */
-
 char **tokenise_and_parse(char *s)
 {
 	char *token, **args, *s_copy;
@@ -49,75 +49,49 @@ char **tokenise_and_parse(char *s)
 	return (args);
 }
 
-/**
- * is_delim - test whether the string is delimited
- * @c: string to test
- * @delims: list of delimiters
- * Returns: 1 if the string is delimited else 0
-*/
-unsigned int is_delim(char c, char *delim)
-{
-    while(*delim != '\0')
-    {
-        if(c == *delim)
-            return 1;
-        delim++;
-    }
-    return 0;
-}
 
 /**
- * my_strtok - tokenize the string
+ * my_strtok - tokenizes the string
  * @srcString: string to tokenize
  * @delim: list of delimiters
- * Returns: tokens
+ *
+ * Return: tokens
 */
 char *my_strtok(char *srcString, char *delim)
 {
-    static char *backup_string; /*start of the next search*/
-    char *ret;
+	static char *lastToken;
+	char *token = NULL;
 
-	if(!srcString)
-    {
-        srcString = backup_string;
-    }
-    if(!srcString)
-    {
-        /* user is bad user */
-        return NULL;
-    }
-    /* handle beginning of the string containing delims */
-    while(1)
-    {
-        if(is_delim(*srcString, delim))
-        {
-            srcString++;
-            continue;
-        }
-        if(*srcString == '\0')
-        {
-            /* we've reached the end of the string */
-            return NULL; 
-        }
-        break;
-    }
+	if (srcString != NULL)
+	{
+		lastToken = srcString;
+	}
+	else if (lastToken == NULL)
+	{
+		return (NULL);
+	}
 
-	ret = srcString;
-    while(1)
-    {
-        if(*srcString == '\0')
-        {
-            /*end of the input string and
-            next exec will return NULL*/
-            backup_string = srcString;
-            return ret;
-        }
-        if(is_delim(*srcString, delim))
-        {
-            *srcString = '\0';
-            backup_string = srcString + 1;
-            return ret;
-        }
-        srcString++;
-    }
+	token = lastToken;
+
+	while (*lastToken != '\0')
+	{
+		const char *p = delim;
+
+		while (*p != '\0')
+		{
+			if (*lastToken == *p)
+			{
+				*lastToken = '\0';
+				lastToken++;
+				return (token);
+			}
+
+			p++;
+		}
+
+		lastToken++;
+	}
+
+	lastToken = NULL;
+	return (token);
 }

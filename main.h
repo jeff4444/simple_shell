@@ -35,6 +35,5 @@ int handle_builtin_cmds(char *input, char **args, char **envp,
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 int _setenv(char **args, char **envp, char *argv, int count);
 int _unsetenv(char **args, char **envp, char *argv, int count);
-unsigned int is_delim(char c, char *delim);
 char *my_strtok(char *srcString, char *delim);
 #endif
