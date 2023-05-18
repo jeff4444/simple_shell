@@ -20,7 +20,7 @@ int main(int argc, char *argv[], char **envp)
 		count++;
 		if (!get_user_input(&read))
 			break;
-		args = tokenise(read);
+		args = tokenise_and_parse(read);
 		if (args == NULL)
 			continue;
 		args = replace(args, &n);

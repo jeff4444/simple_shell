@@ -22,7 +22,7 @@ char **replace(char **args, int *i);
 int handle_exit(char **args, char **envp, char *argv, int count);
 int handle_cd(char **args, char **envp, char *argv, int count);
 int _strcmp(char *s1, char *s2);
-char **tokenise(char *s);
+char **tokenise_and_parse(char *s);
 void execute_command(char **args, char *stringexe, char **envp);
 int checkexe(char *s);
 char *_strcat(char *s1, char *s2);
@@ -35,4 +35,6 @@ int handle_builtin_cmds(char *input, char **args, char **envp,
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 int _setenv(char **args, char **envp, char *argv, int count);
 int _unsetenv(char **args, char **envp, char *argv, int count);
+unsigned int is_delim(char c, char *delim);
+char *my_strtok(char *srcString, char *delim);
 #endif
