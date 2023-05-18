@@ -19,7 +19,7 @@ int handle_exit(char **args, char **envp, char *argv, int count)
 	a = strtod(args[1], endptr);
 	if (a == 0)
 	{
-		printf("%s: %d: %s: Illegal number: %s\n", argv, count, args[0], args[1]);
+		printf("%s: %d: %s: Illegal argument\n", argv, count, args[0]);
 		return (1);
 	}
 	exit(a);
