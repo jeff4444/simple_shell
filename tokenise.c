@@ -1,5 +1,6 @@
 #include "main.h"
 
+
 /**
  * tokenise_and_parse - tokenises the read line
  * @s: read line
@@ -12,6 +13,8 @@ char **tokenise_and_parse(char *s)
 	int i = 0;
 	int j;
 
+	if (_strcmp(s, ""))
+		return (NULL);
 	s_copy = malloc(sizeof(s));
 	if (s_copy == NULL)
 		return (NULL);
@@ -22,12 +25,7 @@ char **tokenise_and_parse(char *s)
 		free(s_copy);
 		return (NULL);
 	}
-	while (token)
-	{
-		i++;
-		token = my_strtok(NULL, " ");
-	}
-	args = malloc((i + 1) * sizeof(char *));
+	args = malloc(MAX_ARGS * sizeof(char *));
 	i = 0;
 	token = my_strtok(s, " ");
 	while (token)

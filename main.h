@@ -8,6 +8,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #define UNUSED(x) (void)(x)
+#define MAX_ARGS 10 /* Maximum number of arguments */
 /**
  * struct Builtin - built ins
  * @name: name of built in
