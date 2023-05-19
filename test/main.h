@@ -9,6 +9,7 @@
 #include <sys/stat.h>
 #include <stdarg.h>
 char *_strcpy(char *dest, char *src);
+char *_strtok(char *srcString, char *delim);
 int _strcmp(char *s1, char *s2);
 char **tokenise(char *s);
 void execute_command(char **args, char *stringexe, char **envp, char **av);
