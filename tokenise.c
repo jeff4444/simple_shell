@@ -18,8 +18,8 @@ char **tokenise_and_parse(char *s)
 	s_copy = malloc(sizeof(s));
 	if (s_copy == NULL)
 		return (NULL);
-	strcpy(s_copy, s);
-	token = my_strtok(s_copy, " ");
+	_strcpy(s_copy, s);
+	token = _strtok(s_copy, " ");
 	if (token == NULL)
 	{
 		free(s_copy);
@@ -27,7 +27,7 @@ char **tokenise_and_parse(char *s)
 	}
 	args = malloc(MAX_ARGS * sizeof(char *));
 	i = 0;
-	token = my_strtok(s, " ");
+	token = _strtok(s, " ");
 	while (token)
 	{
 		j = 0;
@@ -38,8 +38,8 @@ char **tokenise_and_parse(char *s)
 			j++;
 		}
 		args[i] = malloc(sizeof(char) * (j + 1));
-		strcpy(args[i++], token);
-		token = my_strtok(NULL, " ");
+		_strcpy(args[i++], token);
+		token = _strtok(NULL, " ");
 	}
 	args[i] = NULL;
 	free(s_copy);
@@ -49,13 +49,13 @@ char **tokenise_and_parse(char *s)
 
 
 /**
- * my_strtok - tokenizes the string
+ * _strtok - tokenizes the string
  * @srcString: string to tokenize
  * @delim: list of delimiters
  *
  * Return: tokens
 */
-char *my_strtok(char *srcString, char *delim)
+char *_strtok(char *srcString, char *delim)
 {
 	static char *lastToken;
 	char *token = NULL;

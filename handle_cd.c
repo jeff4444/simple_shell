@@ -10,7 +10,7 @@
  */
 int handle_cd(char **args, char **envp, char *argv, int count)
 {
-	char *dir = malloc(sizeof(args[1])), *oldpwd, cwd[1024], *use;
+	char *dir = malloc(10), *oldpwd, cwd[1024], *use;
 	int i, j, k;
 
 	UNUSED(envp);
@@ -19,7 +19,7 @@ int handle_cd(char **args, char **envp, char *argv, int count)
 		perror("Failed to get Path\n");
 	oldpwd = malloc(sizeof(cwd));
 	strcpy(oldpwd, cwd);
-	if (!dir)
+	if (_strcmp(dir, ""))
 	{
 		dir = getenv("HOME");
 		i = chdir(dir);

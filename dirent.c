@@ -25,7 +25,7 @@ int checkexe(char *s)
 	}
 	else
 	{
-		printf("Error! Could not find path");
+		_puts("Error! Could not find path");
 	}
 	return (0);
 }

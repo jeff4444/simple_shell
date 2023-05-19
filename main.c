@@ -63,7 +63,11 @@ int get_user_input(char **input)
 	char buf[1024];
 
 	if (isatty(STDIN_FILENO))
-		printf("Jeff@%s:%s$ ", getenv("HOSTNAME"), getcwd(buf, sizeof(buf)));
+		_puts("Jeff@");
+		_puts(getenv("HOSTNAME"));
+		_putchar(':');
+		_puts(getcwd(buf, sizeof(buf)));
+		_puts("$ ");
 	n_chars = _getline(input, &n, stdin);
 	if (n_chars == -1)
 	{
