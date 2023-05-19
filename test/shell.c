@@ -23,11 +23,8 @@ int main(int argc, char *argv[], char **envp)
 		args = tokenise(read);
 		if (args == NULL)
 			continue;
-		if (_strcmp(args[0], "exit"))
-		{
-			handle_exit(args, argv, envp, count);
+		if (handle_built(args, envp, argv, count))
 			continue;
-		}
 		stringexe = fix_path(args[0]);
 		if (stat(stringexe, &st) == -1)
 		{
@@ -66,4 +63,33 @@ int get_user_input(char **input)
 		return (0);
 	}
 	return (1);
+}
+
+/**
+ * handle_built - handles built in commands
+ * @args:
+ * @envp:
+ * @argv:
+ * @count
+ * Return: 1 (found) 0 (not found)
+ */
+int handle_built(char **args, char **envp, char **argv, int count)
+{
+
+	if (_strcmp(args[0], "exit"))
+	{
+		handle_exit(args, argv, envp, count);
+		return (1);
+	}
+	else if (_strcmp(args[0], "setenv"))
+	{
+		_setenv(args, envp, argv[0], count);
+		return (1);
+	}
+	else if (_strcmp(args[0], "unsetenv"))
+	{
+		_unsetenv(args, envp, argv[0], count);
+		return (1);
+	}
+	return (0);
 }

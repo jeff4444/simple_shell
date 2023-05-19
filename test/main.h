@@ -8,6 +8,12 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <stdarg.h>
+extern char **environ;
+char *_getenv(char *name);
+int _putenv(char *name, char *string);
+int _unsetenv(char **args, char **envp, char *argv, int count);
+int _setenv(char **args, char **envp, char *argv, int count);
+int handle_built(char **args, char **envp, char **argv, int count);
 char *_strcpy(char *dest, char *src);
 char *_strtok(char *srcString, char *delim);
 int _strcmp(char *s1, char *s2);
