@@ -24,11 +24,14 @@ int main(int argc, char *argv[], char **envp)
 		if (args == NULL)
 			continue;
 		if (_strcmp(args[0], "exit"))
-			handle_exit(args, argv, envp);
+		{
+			handle_exit(args, argv, envp, count);
+			continue;
+		}
 		stringexe = fix_path(args[0]);
 		if (stat(stringexe, &st) == -1)
 		{
-			perror(argv[0]);
+			_printf("%s: %d: %s: not found\n", argv[0], count, args[0]);
 			continue;
 		}
 		i = fork();
@@ -59,7 +62,7 @@ int get_user_input(char **input)
 	if (n_chars == -1)
 	{
 		if (isatty(STDIN_FILENO))
-			write(STDOUT_FILENO, "\n", 2);
+			write(STDOUT_FILENO, "\n", 1);
 		return (0);
 	}
 	return (1);

@@ -43,7 +43,7 @@ ssize_t _getline(char **lineptr, size_t *n, int fd)
 	*lineptr = buffer;
 	*n = n_chars;
 
-	if (res == -1 && i == 0)
+	if (res <= 0 && i == 0)
 		return (-1);
 	return (i);
 }

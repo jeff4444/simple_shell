@@ -7,6 +7,7 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <stdarg.h>
 char *_strcpy(char *dest, char *src);
 int _strcmp(char *s1, char *s2);
 char **tokenise(char *s);
@@ -18,7 +19,10 @@ int get_user_input(char **input);
 char *_strcat(char *dest, char *src);
 int _strlen(char *s);
 int _atoi(char *s);
-int handle_exit(char **args, char **av, char **envp);
+int handle_exit(char **args, char **av, char **envp, int count);
 int print_env(char **args, char **envp, char **argv);
 ssize_t _getline(char **lineptr, size_t *n, int fd);
+int _putchar(char c);
+void _puts(char *str);
+int _printf(char const *format, ...);
 #endif

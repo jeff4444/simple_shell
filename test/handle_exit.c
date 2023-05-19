@@ -8,7 +8,7 @@
  *
  * Return: int
  */
-int handle_exit(char **args, char **av, char **envp)
+int handle_exit(char **args, char **av, char **envp, int count)
 {
 	int a;
 
@@ -18,7 +18,7 @@ int handle_exit(char **args, char **av, char **envp)
 	a = _atoi(args[1]);
 	if (a == 0)
 	{
-		perror(av[0]);
+		_printf("%s: %d: %s: Illegal number: %s\n", av[0], count, args[0], args[1]);
 		return (1);
 	}
 	exit(a);
