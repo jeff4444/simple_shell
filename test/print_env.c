@@ -4,7 +4,6 @@
  * @args: command line arguments
  * @envp: environment variables
  * @argv: current exe filename
- * @count: current counter
  * Return: int
  */
 int print_env(char **args, char **envp, char **argv)

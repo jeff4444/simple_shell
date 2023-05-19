@@ -3,7 +3,7 @@
  * _getline - getline function
  * @lineptr: line pointer
  * @n: size of lineptr
- * @stream: File stream to read from
+ * @fd: File stream to read from
  * Return: size read or -1 (Fail)
  */
 ssize_t _getline(char **lineptr, size_t *n, int fd)

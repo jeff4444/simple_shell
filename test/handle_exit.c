@@ -3,7 +3,7 @@
  * handle_exit - handles the exit command
  * @args: command line args
  * @envp: environment variables
- * @argv: command used to run file
+ * @av: command used to run file
  * @count: current count
  *
  * Return: int

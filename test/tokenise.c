@@ -14,7 +14,7 @@ char **tokenise(char *s)
 	s_copy = malloc(sizeof(s));
 	if (s_copy == NULL)
 		return (NULL);
-	strcpy(s_copy, s);
+	_strcpy(s_copy, s);
 	token = strtok(s_copy, " ");
 	if (token == NULL)
 	{
@@ -32,7 +32,7 @@ char **tokenise(char *s)
 	while (token)
 	{
 		args[i] = malloc(sizeof(token));
-		strcpy(args[i++], token);
+		_strcpy(args[i++], token);
 		token = strtok(NULL, " ");
 	}
 	args[i] = NULL;

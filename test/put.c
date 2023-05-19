@@ -30,6 +30,12 @@ int _putchar(char c)
 	return (write(1, &c, 1));
 }
 
+/**
+ * _printf - prints a formatted string
+ * @format: formatted string
+ *
+ * Return: length og format
+ */
 int _printf(const char *format, ...)
 {
 	int i;
