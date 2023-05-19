@@ -20,4 +20,5 @@ int _strlen(char *s);
 int _atoi(char *s);
 int handle_exit(char **args, char **av, char **envp);
 int print_env(char **args, char **envp, char **argv);
+ssize_t _getline(char **lineptr, size_t *n, int fd);
 #endif
