@@ -8,7 +8,7 @@
  */
 int main(int argc, char *argv[], char **envp)
 {
-	char *read = NULL, **args = NULL, *stringexe;
+	char *read = NULL, **args, *stringexe;
 	pid_t i;
 	int count = 0, swait;
 	struct stat st;
@@ -18,6 +18,7 @@ int main(int argc, char *argv[], char **envp)
 	while (1)
 	{
 		count++;
+		args = NULL;
 		if (!get_user_input(&read))
 			break;
 		args = tokenise(read);
@@ -59,7 +60,7 @@ int get_user_input(char **input)
 	if (n_chars == -1)
 	{
 		if (isatty(STDIN_FILENO))
-			write(STDOUT_FILENO, "\n", 1);
+			write(STDOUT_FILENO, "\n", 2);
 		return (0);
 	}
 	return (1);
@@ -89,6 +90,11 @@ int handle_built(char **args, char **envp, char **argv, int count)
 	else if (_strcmp(args[0], "unsetenv"))
 	{
 		_unsetenv(args, envp, argv[0], count);
+		return (1);
+	}
+	else if (_strcmp(args[0], "cd"))
+	{
+		handle_cd(args, envp, argv[0], count);
 		return (1);
 	}
 	return (0);

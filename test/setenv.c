@@ -21,7 +21,7 @@ int _setenv(char **args, char **envp, char *argv, int count)
 		_printf("Error\n");
 		return (1);
 	}
-	init_value = getenv(name);
+	init_value = _getenv(name);
 	init_name = malloc(sizeof(name));
 	while (name[i] != '\0')
 	{
@@ -39,6 +39,7 @@ int _setenv(char **args, char **envp, char *argv, int count)
 
 	return (1);
 }
+
 
 /**
  * _unsetenv - removes and environment variable
