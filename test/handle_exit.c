@@ -28,3 +28,11 @@ int handle_exit(char **args, char **av, char **envp, int count)
 	free_args(args);
 	exit(a);
 }
+
+/**
+ * free_environ - frees allocated memory to environ
+ */
+void free_environ(void)
+{
+	_printf("Here\n");
+}

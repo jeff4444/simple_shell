@@ -25,11 +25,15 @@ int main(int argc, char *argv[], char **envp)
 		if (args == NULL)
 			continue;
 		if (handle_built(args, envp, argv, count))
+		{
+			free_args(args);
 			continue;
+		}
 		stringexe = fix_path(args[0]);
 		if (stat(stringexe, &st) == -1)
 		{
 			_printf("%s: %d: %s: not found\n", argv[0], count, args[0]);
+			free_args(args);
 			continue;
 		}
 		i = fork();

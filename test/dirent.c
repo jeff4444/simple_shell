@@ -21,6 +21,7 @@ int checkexe(char *s)
 		{
 			if (_strcmp(dirent->d_name, s))
 			{
+				closedir(dir);
 				return (1);
 			}
 		}
@@ -29,5 +30,6 @@ int checkexe(char *s)
 	{
 		perror("Error! Could not find path");
 	}
+	closedir(dir);
 	return (0);
 }

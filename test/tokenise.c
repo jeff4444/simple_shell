@@ -23,7 +23,8 @@ char **tokenise(char *s)
 	}
 	while (token)
 	{
-		i++;
+		if (!(_strcmp(token, "")))
+			i++;
 		token = _strtok(NULL, " ");
 	}
 	args = malloc((i + 1) * sizeof(char *));
@@ -39,6 +40,7 @@ char **tokenise(char *s)
 		token = _strtok(NULL, " ");
 	}
 	args[i] = NULL;
+	free(token);
 	free(s_copy);
 	return (args);
 }

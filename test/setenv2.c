@@ -1,6 +1,6 @@
 #include "main.h"
 /**
- * _setenv -  changes or adds an environment variable
+ * _setenv2 -  changes or adds an environment variable
  * @name: name of env variable
  * @value: value of env variable
  * @overwrite: 1 (true) 0 (false)
@@ -27,10 +27,13 @@ int _setenv2(char *name, char *value, int overwrite)
 	output[name_len] = '=';
 	_strcpy(output + name_len + 1, value);
 	output[name_len + val_len + 1] = '\0';
-	init_value = _getenv(name);
+	init_value = malloc(_strlen(_getenv(name)) + 1);
+	_strcpy(init_value, _getenv(name));
 	if (!init_value || overwrite)
 		i = _putenv(name, output);
 	if (i)
 		_printf("Error\n");
+	free(init_value);
+	free(output);
 	return (1);
 }

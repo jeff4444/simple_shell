@@ -21,6 +21,5 @@ int print_env(char **args, char **envp, char **argv)
 		_printf("%s\n", environ[i]);
 		i++;
 	}
-	printf("%s\n", _getenv("OLDPWD"));
 	return (1);
 }

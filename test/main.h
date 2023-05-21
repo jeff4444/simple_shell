@@ -20,6 +20,7 @@ int print_env(char **args, char **envp, char **argv);
 int _strlen(char *s);
 char *str_add(char *filename);
 void free_args(char **args);
+char *_getdir(char *dir);
 char *_strcpy(char *dest, char *src);
 char *_strtok(char *srcString, char *delim);
 int _strcmp(char *s1, char *s2);
