@@ -7,44 +7,42 @@
  *
  * Return: array of args
  */
-char **tokenise_and_parse(char *s)
+char **tokenise_and_parse(char *str, const char *delim)
 {
-	char *token, **args, *s_copy;
-	int i = 0;
-	int j;
+	int i, wn;
+	char **array;
+	char *token, *buffer;
 
-	if (_strcmp(s, ""))
-		return (NULL);
-	s_copy = malloc(sizeof(s));
-	if (s_copy == NULL)
-		return (NULL);
-	_strcpy(s_copy, s);
-	token = _strtok(s_copy, " ");
-	if (token == NULL)
+	buffer = malloc(_strlen(str) + 1);
+	if (buffer == NULL)
 	{
-		free(s_copy);
+		perror(_getenv("_"));
 		return (NULL);
 	}
-	args = malloc(MAX_ARGS * sizeof(char *));
 	i = 0;
-	token = _strtok(s, " ");
+	while (str[i])
+	{
+		buffer[i] = str[i];
+		i++;
+	}
+	buffer[i] = '\0';
+
+	token = _strtok(buffer, delim);
+	array = malloc((sizeof(char *) * 2));
+	array[0] = _strdup(token);
+
+	i = 1;
+	wn = 3;
 	while (token)
 	{
-		j = 0;
-		while (token[j] != '\0')
-		{
-			if (token[j] == '\n')
-				token[j] = '\0';
-			j++;
-		}
-		args[i] = malloc(sizeof(char) * (j + 1));
-		_strcpy(args[i++], token);
-		token = _strtok(NULL, " ");
+		token = _strtok(NULL, delim);
+		array = _realloc(array, (sizeof(char *) * (wn - 1)), (sizeof(char *) * wn));
+		array[i] = _strdup(token);
+		i++;
+		wn++;
 	}
-	args[i] = NULL;
-	free(s_copy);
-	free(token);
-	return (args);
+	free(buffer);
+	return (array);
 }
 
 
@@ -55,7 +53,7 @@ char **tokenise_and_parse(char *s)
  *
  * Return: tokens
 */
-char *_strtok(char *srcString, char *delim)
+char *_strtok(char *srcString, char const *delim)
 {
 	static char *lastToken;
 	char *token = NULL;
