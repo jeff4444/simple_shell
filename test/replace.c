@@ -2,10 +2,9 @@
 /**
  * replace - repaces variables
  * @args: list of cmd line arguments
- * @i: int
  * Return: modified args
  */
-char **replace(char **args, int *i)
+char **replace(char **args)
 {
 	int n = 0;
 	char *ptr, *ptr2, *get = NULL;
@@ -14,18 +13,14 @@ char **replace(char **args, int *i)
 	{
 		if (args[n][0] == '$')
 		{
-			if ((args[n][1] == '$') && args[n][2] == '\0' &&
-					_strcmp(args[n - 1], "echo"))
+			if ((args[n][1] == '$') && args[n][2] == '\0')
 			{
 				/* still to implement this */
-				_printf("%d\n", getpid());
-				*i = 100;
-				break;
-			}
-			else if (!_strcmp(args[n - 1], "echo"))
-			{
-				n++;
-				continue;
+				get = print_nums(getpid());
+				ptr2 = &args[n][0];
+				args[n] = realloc(ptr2, sizeof(get));
+				_strcpy(args[n], get);
+				free(get);
 			}
 			else
 			{
@@ -35,10 +30,10 @@ char **replace(char **args, int *i)
 				_strcpy(get, _getenv(ptr));
 				args[n] = realloc(ptr2, sizeof(get));
 				_strcpy(args[n], get);
+				free(get);
 			}
 		}
 		n++;
 	}
-	free(get);
 	return (args);
 }

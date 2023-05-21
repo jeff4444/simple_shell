@@ -50,7 +50,7 @@ int _printf(const char *format, ...)
 			i++;
 			if (format[i] == 'd')
 			{
-				print_nums(va_arg(args, int));
+				_putchar(va_arg(args, int) + '0');
 				i++;
 			}
 			else if (format[i] == 's')
