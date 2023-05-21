@@ -36,11 +36,13 @@ int main(int argc, char *argv[], char **envp)
 		if (i == 0)
 			execute_command(args, stringexe, envp, argv);
 		else
+		{
 			wait(&swait);
+			free_args(args);
+			free(stringexe);
+		}
 	}
 	free(read);
-	if (args != NULL)
-		free(args);
 	return (0);
 }
 
@@ -68,10 +70,10 @@ int get_user_input(char **input)
 
 /**
  * handle_built - handles built in commands
- * @args:
- * @envp:
- * @argv:
- * @count
+ * @args: list of command line args
+ * @envp: environment variables
+ * @argv: contains name of run file
+ * @count: count
  * Return: 1 (found) 0 (not found)
  */
 int handle_built(char **args, char **envp, char **argv, int count)
@@ -97,5 +99,28 @@ int handle_built(char **args, char **envp, char **argv, int count)
 		handle_cd(args, envp, argv[0], count);
 		return (1);
 	}
+	else if (_strcmp(args[0], "env"))
+	{
+		print_env(args, envp, argv);
+		return (1);
+	}
 	return (0);
 }
+
+/**
+ * free_args - free args
+ * @args: args
+ */
+void free_args(char **args)
+{
+	int i = 0;
+
+	while (args[i])
+	{
+		free(args[i]);
+		i++;
+	}
+	free(args[i]);
+	free(args);
+}
+

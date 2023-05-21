@@ -1,38 +1,36 @@
 #include "main.h"
 /**
  * _setenv -  changes or adds an environment variable
- * @args: command line arguments
- * @envp: environment variables
- * @argv: current exe filename
- * @count: count
+ * @name: name of env variable
+ * @value: value of env variable
+ * @overwrite: 1 (true) 0 (false)
+ *
  * Return: int
  */
 int _setenv2(char *name, char *value, int overwrite)
 {
-	char *init_value, *output, *init_name;
+	char *init_value;
 	int i = 0;
+	size_t name_len, val_len;
+	char *output;
 
-	(void)overwrite;
 	if (name == NULL || value == NULL || name[0] == '\0')
 	{
 		_printf("Error\n");
 		return (1);
 	}
+	name_len = _strlen(name);
+	val_len = _strlen(value);
+	output = malloc(name_len + val_len + 2);
+
+	_strcpy(output, name);
+	output[name_len] = '=';
+	_strcpy(output + name_len + 1, value);
+	output[name_len + val_len + 1] = '\0';
 	init_value = _getenv(name);
-	init_name = malloc(sizeof(name));
-	while (name[i] != '\0')
-	{
-		init_name[i] = name[i];
-		i++;
-	}
-	init_name[i] = '\0';
-	i = 0;
-	init_name = _strcat(init_name, "=");
-	output = _strcat(init_name, value);
 	if (!init_value || overwrite)
 		i = _putenv(name, output);
 	if (i)
 		_printf("Error\n");
-
 	return (1);
 }

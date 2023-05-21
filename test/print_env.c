@@ -10,16 +10,17 @@ int print_env(char **args, char **envp, char **argv)
 {
 	int i = 0;
 
+	(void)envp;
 	if (args[1] != NULL)
 	{
 		perror(argv[0]);
 		return (1);
 	}
-	while (envp[i])
+	while (environ[i])
 	{
-		write(STDOUT_FILENO, envp[i], sizeof(envp[i]));
-		write(STDOUT_FILENO, "\n", 1);
+		_printf("%s\n", environ[i]);
 		i++;
 	}
+	printf("%s\n", _getenv("OLDPWD"));
 	return (1);
 }

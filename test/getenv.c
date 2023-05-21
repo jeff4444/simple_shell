@@ -45,6 +45,7 @@ char *_getenv(char *name)
 int _putenv(char *name, char *string)
 {
 	int i = 0, j, on;
+	char *env_var;
 
 	while (environ[i])
 	{
@@ -61,8 +62,10 @@ int _putenv(char *name, char *string)
 			i++;
 			continue;
 		}
-		/* main substitution here */
-		environ[i] = string;
+		/* maiin substitution here */
+		env_var = malloc(_strlen(string) + 1);
+		_strcpy(env_var, string);
+		environ[i] = env_var;
 		return (0);
 	}
 	environ[i] = string;

@@ -11,15 +11,16 @@
 int handle_cd(char **args, char **envp, char *argv, int count)
 {
 	char *dir = malloc(10), *oldpwd, cwd[1024], *use;
-	int i, j, k;
+	int i;
 
 	(void)envp;
-	_strcpy(dir, args[1]);
+	if (args[1])
+		_strcpy(dir, args[1]);
 	if (!getcwd(cwd, sizeof(cwd)))
 		perror("Failed to get Path\n");
 	oldpwd = malloc(sizeof(cwd));
 	_strcpy(oldpwd, cwd);
-	if (_strcmp(dir, ""))
+	if (args[1] == NULL)
 	{
 		dir = _getenv("HOME");
 		i = chdir(dir);
@@ -44,15 +45,13 @@ int handle_cd(char **args, char **envp, char *argv, int count)
 	if (i == -1)
 	{
 		_printf("%s: %d: cd: can't cd to %s\n", argv, count, args[1]);
-		free(dir);
 		return (1);
 	}
 	if (_strcmp(args[1], "..") || _strcmp(args[1], "."))
-		j = _setenv2("PWD", getcwd(cwd, sizeof(cwd)), 1);
+		_setenv2("PWD", getcwd(cwd, sizeof(cwd)), 1);
 	else
-		j = _setenv2("PWD", dir, 1);
-	k = _setenv2("OLDPWD", oldpwd, 1);
-	if (j == -1 || k == -1)
-		_printf("Error\n");
+		_setenv2("PWD", dir, 1);
+	_setenv2("OLDPWD", oldpwd, 1);
+	free(oldpwd);
 	return (1);
 }

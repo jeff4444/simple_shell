@@ -10,7 +10,8 @@
  */
 void execute_command(char **args, char *stringexe, char **envp, char **av)
 {
-	if (execve(stringexe, args, envp) == -1)
+	(void)envp;
+	if (execve(stringexe, args, environ) == -1)
 	{
 		perror(av[0]);
 		exit(1);

@@ -20,7 +20,9 @@ int checkexe(char *s)
 		while ((dirent = readdir(dir)))
 		{
 			if (_strcmp(dirent->d_name, s))
+			{
 				return (1);
+			}
 		}
 	}
 	else

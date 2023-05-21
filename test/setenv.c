@@ -22,7 +22,7 @@ int _setenv(char **args, char **envp, char *argv, int count)
 		return (1);
 	}
 	init_value = _getenv(name);
-	init_name = malloc(sizeof(name));
+	init_name = malloc(_strlen(name) + 1);
 	while (name[i] != '\0')
 	{
 		init_name[i] = name[i];
@@ -36,7 +36,6 @@ int _setenv(char **args, char **envp, char *argv, int count)
 		i = _putenv(args[1], output);
 	if (i)
 		_printf("Error\n");
-
 	return (1);
 }
 
@@ -67,5 +66,6 @@ int _unsetenv(char **args, char **envp, char *argv, int count)
 	i = _putenv(name, name);
 	if (i)
 		_printf("Error\n");
+	free(name);
 	return (1);
 }

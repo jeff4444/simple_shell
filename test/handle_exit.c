@@ -14,12 +14,17 @@ int handle_exit(char **args, char **av, char **envp, int count)
 
 	(void)envp;
 	if (args[1] == NULL || _strcmp(args[1], "0"))
+	{
+		free_args(args);
 		exit(0);
+	}
 	a = _atoi(args[1]);
 	if (a == 0)
 	{
 		_printf("%s: %d: %s: Illegal number: %s\n", av[0], count, args[0], args[1]);
+		free_args(args);
 		return (1);
 	}
+	free_args(args);
 	exit(a);
 }
