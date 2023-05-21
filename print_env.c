@@ -16,10 +16,12 @@ int print_env(char **args, char **envp, char *argv, int count)
 	UNUSED(count);
 	if (args[1] != NULL)
 	{
-		printf("env: '%s': No such file or directory\n", args[1]);
+		_puts("env: '");
+		_puts(args[1]);
+		_puts("': No such file or directory\n");
 		return (1);
 	}
 	while (envp[i])
-		printf("%s\n", envp[i++]);
+		_puts(envp[i++]);
 	return (1);
 }
