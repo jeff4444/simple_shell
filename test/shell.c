@@ -10,7 +10,7 @@ int main(int argc, char *argv[], char **envp)
 {
 	char *read = NULL, **args, *stringexe;
 	pid_t i;
-	int count = 0, swait;
+	int count = 0, swait, n = 0;
 	struct stat st;
 
 	(void)argc;
@@ -24,6 +24,13 @@ int main(int argc, char *argv[], char **envp)
 		args = tokenise(read);
 		if (args == NULL)
 			continue;
+		args = replace(args, &n);
+		if (n == 100)
+		{
+			n = 0;
+			free_args(args);
+			continue;
+		}
 		if (handle_built(args, envp, argv, count))
 		{
 			free_args(args);

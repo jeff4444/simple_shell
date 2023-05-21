@@ -17,6 +17,8 @@ int handle_built(char **args, char **envp, char **argv, int count);
 int _setenv2(char *name, char *value, int overwrite);
 int handle_cd(char **args, char **envp, char *argv, int count);
 int print_env(char **args, char **envp, char **argv);
+char **replace(char **args, int *i);
+void print_nums(int n);
 int _strlen(char *s);
 char *str_add(char *filename);
 void free_args(char **args);
