@@ -69,7 +69,6 @@ int _unsetenv(char **args, char **envp, char *argv, int count)
 	return (1);
 }
 
-
 /**
  * _getenv - this gets the value of the global variable
  * @name: name of the global variable

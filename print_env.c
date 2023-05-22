@@ -22,6 +22,6 @@ int print_env(char **args, char **envp, char *argv, int count)
 		return (1);
 	}
 	while (envp[i])
-		_puts(envp[i++]);
+		printf("%s\n", envp[i++]);
 	return (1);
 }
