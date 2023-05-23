@@ -78,8 +78,8 @@ int execute_read(char *read, char **envp, char **argv, int count)
 	stringexe = fix_path(args[0]);
 	if (stat(stringexe, &st) == -1)
 	{
-		perror(argv[0]);
-		/* command_not_found(argv[0], count, args[0]); */
+		/* perror(argv[0]); */
+		command_not_found(argv[0], count, args[0]);
 		free_args(args);
 		return (0);
 	}
