@@ -8,48 +8,91 @@
  */
 int main(int argc, char *argv[], char **envp)
 {
-	char *read = NULL, **args, *stringexe;
-	pid_t i;
-	int count = 0, swait;
-	struct stat st;
+	char *read = NULL, *token, **reads, *read_copy;
+	int count = 0, i;
 
 	(void)argc;
 	while (1)
 	{
+		i = 0;
 		count++;
-		args = NULL;
 		if (!get_user_input(&read))
 			break;
-		args = tokenise(read);
-		if (args == NULL)
-			continue;
-		args = replace(args);
-		if (handle_built(args, envp, argv, count))
+		read_copy = malloc(_strlen(read) + 1);
+		_strcpy(read_copy, read);
+		token = _strtok(read_copy, ";");
+		while (token)
 		{
-			free_args(args);
-			continue;
+			i++;
+			token = _strtok(NULL, ";");
 		}
-		stringexe = fix_path(args[0]);
-		if (stat(stringexe, &st) == -1)
+		reads = malloc((i + 1) * sizeof(char *));
+		token = _strtok(read, ";");
+		i = 0;
+		while (token)
 		{
-			_printf("%s: %d: %s: not found\n", argv[0], count, args[0]);
-			free_args(args);
-			continue;
+			reads[i] = malloc(_strlen(token) + 1);
+			_strcpy(reads[i++], token);
+			token = _strtok(NULL, ";");
 		}
-		i = fork();
-		if (i == 0)
-			execute_command(args, stringexe, envp, argv);
-		else
+		reads[i] = NULL;
+		i = 0;
+		while (reads[i])
 		{
-			wait(&swait);
-			free_args(args);
-			free(stringexe);
+			execute_read(reads[i], envp, argv, count);
+			i++;
 		}
+		free(token);
+		free_args(reads);
+		free(read_copy);
 	}
 	free(read);
 	return (0);
 }
 
+
+/**
+ * execute_read - executes a command
+ * @read: read input
+ * @envp: environment variables
+ * @argv: list of cmd line args
+ * @count: count
+ * Return: 0
+ */
+int execute_read(char *read, char **envp, char **argv, int count)
+{
+	char **args = NULL, *stringexe;
+	pid_t i;
+	struct stat st;
+	int swait;
+
+	args = tokenise(read);
+	if (args == NULL)
+		return (0);
+	args = replace(args);
+	if (handle_built(args, envp, argv, count))
+	{
+		free_args(args);
+		return (0);
+	}
+	stringexe = fix_path(args[0]);
+	if (stat(stringexe, &st) == -1)
+	{
+		_printf("%s: %d: %s: not found\n", argv[0], count, args[0]);
+		free_args(args);
+		return (0);
+	}
+	i = fork();
+	if (i == 0)
+		execute_command(args, stringexe, envp, argv);
+	else
+	{
+		wait(&swait);
+		free_args(args);
+		free(stringexe);
+	}
+	return (0);
+}
 /**
  * get_user_input - gets user input
  * @input: user input
