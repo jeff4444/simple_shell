@@ -23,6 +23,8 @@ char **tokenise(char *s)
 	}
 	while (token)
 	{
+		if (_strcmp(token, "#") || token[0] == '#')
+			break;
 		if (!(_strcmp(token, "")))
 			i++;
 		token = _strtok(NULL, " ");
@@ -32,6 +34,8 @@ char **tokenise(char *s)
 	token = _strtok(s, " ");
 	while (token)
 	{
+		if (_strcmp(token, "#") || token[0] == '#')
+			break;
 		if (!(_strcmp(token, "")))
 		{
 			args[i] = malloc(_strlen(token) + 1);
@@ -40,7 +44,8 @@ char **tokenise(char *s)
 		token = _strtok(NULL, " ");
 	}
 	args[i] = NULL;
-	free(token);
+	if (!(_strcmp(token, "#") || token[0] == '#'))
+		free(token);
 	free(s_copy);
 	return (args);
 }
