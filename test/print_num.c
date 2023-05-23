@@ -1,9 +1,10 @@
 #include "main.h"
 
 /**
- * print_nums - prints an integer
+ * print_nums - converts an int to a string
  *
  * @n: integer input
+ * Return: Number as string
  */
 char *print_nums(int n)
 {
@@ -37,17 +38,10 @@ char *print_nums(int n)
 		pow /= 10;
 	}
 	if (n != 0)
-	{
 		string[j++] = (n + '0');
-	}
 	else
-	{
 		for (i = 0; i < tracker; i++)
-		{
 			string[j++] = '0';
-		}
-	}
 	string[j] = '\0';
 	return (string);
 }
-

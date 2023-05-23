@@ -44,7 +44,7 @@ char **tokenise(char *s)
 		token = _strtok(NULL, " ");
 	}
 	args[i] = NULL;
-	if (!(_strcmp(token, "#") || token[0] == '#'))
+	if (!token || (!_strcmp(token, "#") && token[0] != '#'))
 		free(token);
 	free(s_copy);
 	return (args);

@@ -14,7 +14,6 @@ int main(int argc, char *argv[], char **envp)
 	struct stat st;
 
 	(void)argc;
-
 	while (1)
 	{
 		count++;
