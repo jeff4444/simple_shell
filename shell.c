@@ -78,7 +78,7 @@ int execute_read(char *read, char **envp, char **argv, int count)
 	stringexe = fix_path(args[0]);
 	if (stat(stringexe, &st) == -1)
 	{
-		_printf("%s: %d: %s: not found\n", argv[0], count, args[0]);
+		command_not_found(argv[0], count, args[0]);
 		free_args(args);
 		return (0);
 	}
@@ -92,6 +92,22 @@ int execute_read(char *read, char **envp, char **argv, int count)
 		free(stringexe);
 	}
 	return (0);
+}
+
+/**
+ * command_not_found - prints command not found
+ * @arg: name of run file
+ * @count: count
+ * @name: name of error
+ */
+void command_not_found(char *arg, int count, char *name)
+{
+	_puts(arg);
+	_puts(": ");
+	_putchar(count + '0');
+	_puts(": ");
+	_puts(name);
+	_puts(": not found\n");
 }
 /**
  * get_user_input - gets user input

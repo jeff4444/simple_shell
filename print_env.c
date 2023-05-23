@@ -18,7 +18,8 @@ int print_env(char **args, char **envp, char **argv)
 	}
 	while (environ[i])
 	{
-		_printf("%s\n", environ[i]);
+		_puts(environ[i]);
+		_putchar('\n');
 		i++;
 	}
 	return (1);

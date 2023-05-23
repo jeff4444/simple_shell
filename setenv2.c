@@ -16,7 +16,7 @@ int _setenv2(char *name, char *value, int overwrite)
 
 	if (name == NULL || value == NULL || name[0] == '\0')
 	{
-		_printf("Error\n");
+		_puts("Error\n");
 		return (1);
 	}
 	name_len = _strlen(name);
@@ -32,7 +32,7 @@ int _setenv2(char *name, char *value, int overwrite)
 	if (!init_value || overwrite)
 		i = _putenv(name, output);
 	if (i)
-		_printf("Error\n");
+		_puts("Error\n");
 	free(init_value);
 	free(output);
 	return (1);

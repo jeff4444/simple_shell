@@ -18,7 +18,7 @@ int _setenv(char **args, char **envp, char *argv, int count)
 	(void)count;
 	if (args[1] == NULL || args[2] == NULL || args[1][0] == '\0')
 	{
-		_printf("Error\n");
+		_puts("Error\n");
 		return (1);
 	}
 	name_len = _strlen(args[1]);
@@ -35,7 +35,7 @@ int _setenv(char **args, char **envp, char *argv, int count)
 	if (!init_value || overwrite)
 		i = _putenv(args[1], output);
 	if (i)
-		_printf("Error\n");
+		_puts("Error\n");
 	free(init_value);
 	free(output);
 	return (1);
@@ -61,7 +61,7 @@ int _unsetenv(char **args, char **envp, char *argv, int count)
 	(void)count;
 	if (args[1] == NULL || args[1][0] == '\0')
 	{
-		_printf("Error\n");
+		_puts("Error\n");
 		return (1);
 	}
 	_strcpy(name, args[1]);
@@ -69,7 +69,7 @@ int _unsetenv(char **args, char **envp, char *argv, int count)
 	name[_strlen(args[1]) + 1] = '\0';
 	i = _putenv(name, name);
 	if (i)
-		_printf("Error\n");
+		_puts("Error\n");
 	free(name);
 	return (1);
 }

@@ -59,7 +59,7 @@ int handle_cd(char **args, char **envp, char *argv, int count)
 	}
 	if (i == -1)
 	{
-		_printf("%s: %d: cd: can't cd to %s\n", argv, count, args[1]);
+		print_cd_error(argv, count, args[1]);
 		return (1);
 	}
 	if (_strcmp(args[1], "..") || _strcmp(args[1], "."))
@@ -70,6 +70,22 @@ int handle_cd(char **args, char **envp, char *argv, int count)
 	free(oldpwd);
 	free(dir);
 	return (1);
+}
+
+/**
+ * print_cd_error - prints cd error
+ * @argv: name of run file
+ * @count: current count
+ * @name: name of dir to cd
+ */
+void print_cd_error(char *argv, int count, char *name)
+{
+	_puts(argv);
+	_puts(": ");
+	_putchar(count + '0');
+	_puts(": cd: can't cd to ");
+	_puts(name);
+	_putchar('\n');
 }
 
 /**
@@ -90,7 +106,8 @@ char *_getdir(char *dir)
 	{
 		d = malloc(_strlen(_getenv("OLDPWD")) + 1);
 		_strcpy(d, _getenv("OLDPWD"));
-		_printf("%s\n", d);
+		_puts(d);
+		_putchar('\n');
 	}
 	return (d);
 }

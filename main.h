@@ -42,5 +42,7 @@ int print_env(char **args, char **envp, char **argv);
 ssize_t _getline(char **lineptr, size_t *n, int fd);
 int _putchar(char c);
 void _puts(char *str);
-int _printf(char const *format, ...);
+void print_exit_error(char *av, int count, char *status);
+void command_not_found(char *arg, int count, char *name);
+void print_cd_error(char *argv, int count, char *name);
 #endif
