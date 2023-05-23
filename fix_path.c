@@ -12,7 +12,10 @@ char *fix_path(char *filename)
 	if (n)
 		stringexe = str_add(filename);
 	else
-		stringexe = filename;
+	{
+		stringexe = malloc(_strlen(filename) + 1);
+		_strcpy(stringexe, filename);
+	}
 	return (stringexe);
 }
 
