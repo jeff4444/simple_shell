@@ -31,7 +31,7 @@ ssize_t _getline(char **lineptr, size_t *n, int fd)
 		{
 			p++;
 			n_chars *= p;
-			buffer = realloc(buffer, n_chars);
+			buffer = _realloc(buffer, n_chars);
 			if (buffer == NULL)
 				return (-1);
 		}

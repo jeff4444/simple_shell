@@ -18,7 +18,7 @@ char **replace(char **args)
 				/* still to implement this */
 				get = print_nums(getpid());
 				ptr2 = &args[n][0];
-				args[n] = realloc(ptr2, sizeof(get));
+				args[n] = _realloc(ptr2, sizeof(get));
 				_strcpy(args[n], get);
 				free(get);
 			}
@@ -28,7 +28,7 @@ char **replace(char **args)
 				ptr2 = &args[n][0];
 				get = malloc(_strlen(_getenv(ptr)) + 1);
 				_strcpy(get, _getenv(ptr));
-				args[n] = realloc(ptr2, sizeof(get));
+				args[n] = _realloc(ptr2, sizeof(get));
 				_strcpy(args[n], get);
 				free(get);
 			}

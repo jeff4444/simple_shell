@@ -19,6 +19,7 @@ int handle_cd(char **args, char **envp, char *argv, int count);
 int print_env(char **args, char **envp, char **argv);
 char **replace(char **args);
 int execute_read(char *read, char **envp, char **argv, int count);
+void *_realloc(void *ptr, unsigned int new);
 char *print_nums(int n);
 int _strlen(char *s);
 char *str_add(char *filename);
