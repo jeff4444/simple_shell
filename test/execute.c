@@ -4,16 +4,14 @@
  * @args: arguments
  * @stringexe: executable file
  * @envp: environment variables
- * @av: argv
  *
  * Return: void
  */
-void execute_command(char **args, char *stringexe, char **envp, char **av)
+void execute_command(char **args, char *stringexe, char **envp)
 {
-	(void)envp;
-	if (execve(stringexe, args, environ) == -1)
+	if (execve(stringexe, args, envp) == -1)
 	{
-		perror(av[0]);
+		perror("Error!");
 		exit(1);
 	}
 }

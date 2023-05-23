@@ -2,13 +2,12 @@
 /**
  * replace - repaces variables
  * @args: list of cmd line arguments
- * @i: int
  * Return: modified args
  */
-char **replace(char **args, int *i)
+char **replace(char **args)
 {
 	int n = 0;
-	char *ptr, *ptr2, *get;
+	char *ptr, *ptr2, *get = NULL;
 
 	while (args[n])
 	{
@@ -16,17 +15,22 @@ char **replace(char **args, int *i)
 		{
 			if ((args[n][1] == '$') && args[n][2] == '\0')
 			{
-				printf("%u\n", getpid());
-				*i = 100;
-				break;
+				/* still to implement this */
+				get = print_nums(getpid());
+				ptr2 = &args[n][0];
+				args[n] = realloc(ptr2, sizeof(get));
+				_strcpy(args[n], get);
+				free(get);
 			}
 			else
 			{
 				ptr = &args[n][1];
 				ptr2 = &args[n][0];
-				get = getenv(ptr);
+				get = malloc(_strlen(_getenv(ptr)) + 1);
+				_strcpy(get, _getenv(ptr));
 				args[n] = realloc(ptr2, sizeof(get));
-				strcpy(args[n], get);
+				_strcpy(args[n], get);
+				free(get);
 			}
 		}
 		n++;

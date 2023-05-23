@@ -1,51 +1,93 @@
 #include "main.h"
+
+
 /**
- * tokenise - tokenises the read line
+ * tokenise_and_parse - tokenises the read line
  * @s: read line
  *
  * Return: array of args
  */
-
-char **tokenise(char *s)
+char **tokenise_and_parse(char *str, const char *delim)
 {
-	char *token, **args, *s_copy;
-	int i = 0;
+	int i, wn;
+	char **array;
+	char *token, *buffer;
 
-	s_copy = malloc(_strlen(s) + 1);
-	if (s_copy == NULL)
-		return (NULL);
-	_strcpy(s_copy, s);
-	token = _strtok(s_copy, " ");
-	if (token == NULL)
+	buffer = malloc(_strlen(str) + 1);
+	if (buffer == NULL)
 	{
-		free(s_copy);
+		perror(_getenv("_"));
 		return (NULL);
 	}
-	while (token)
-	{
-		if (_strcmp(token, "#") || token[0] == '#')
-			break;
-		if (!(_strcmp(token, "")))
-			i++;
-		token = _strtok(NULL, " ");
-	}
-	args = malloc((i + 1) * sizeof(char *));
 	i = 0;
-	token = _strtok(s, " ");
+	while (str[i])
+	{
+		buffer[i] = str[i];
+		i++;
+	}
+	buffer[i] = '\0';
+
+	token = _strtok(buffer, delim);
+	array = malloc((sizeof(char *) * 2));
+	array[0] = _strdup(token);
+
+	i = 1;
+	wn = 3;
 	while (token)
 	{
-		if (_strcmp(token, "#") || token[0] == '#')
-			break;
-		if (!(_strcmp(token, "")))
-		{
-			args[i] = malloc(_strlen(token) + 1);
-			_strcpy(args[i++], token);
-		}
-		token = _strtok(NULL, " ");
+		token = _strtok(NULL, delim);
+		array = _realloc(array, (sizeof(char *) * (wn - 1)), (sizeof(char *) * wn));
+		array[i] = _strdup(token);
+		i++;
+		wn++;
 	}
-	args[i] = NULL;
-	if (!token || (!_strcmp(token, "#") && token[0] != '#'))
-		free(token);
-	free(s_copy);
-	return (args);
+	free(buffer);
+	return (array);
+}
+
+
+/**
+ * _strtok - tokenizes the string
+ * @srcString: string to tokenize
+ * @delim: list of delimiters
+ *
+ * Return: tokens
+*/
+char *_strtok(char *srcString, char const *delim)
+{
+	static char *lastToken;
+	char *token = NULL;
+
+	if (srcString != NULL)
+	{
+		lastToken = srcString;
+	}
+	else if (lastToken == NULL)
+	{
+		return (NULL);
+	}
+
+	token = lastToken;
+
+	while (*lastToken != '\0')
+	{
+		const char *p = delim;
+
+		while (*p != '\0')
+		{
+			if (*lastToken == *p)
+			{
+				*lastToken = '\0';
+				lastToken++;
+				return (token);
+			}
+
+			p++;
+		}
+
+		lastToken++;
+	}
+
+	lastToken = NULL;
+	return (token);
 }

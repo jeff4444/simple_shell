@@ -4,24 +4,22 @@
  * @args: command line arguments
  * @envp: environment variables
  * @argv: current exe filename
- * @count: current counter
  * Return: int
  */
-int print_env(char **args, char **envp, char *argv, int count)
+int print_env(char **args, char **envp, char **argv)
 {
 	int i = 0;
 
-	UNUSED(envp);
-	UNUSED(argv);
-	UNUSED(count);
+	(void)envp;
 	if (args[1] != NULL)
 	{
-		_puts("env: '");
-		_puts(args[1]);
-		_puts("': No such file or directory\n");
+		perror(argv[0]);
 		return (1);
 	}
-	while (envp[i])
-		printf("%s\n", envp[i++]);
+	while (environ[i])
+	{
+		_printf("%s\n", environ[i]);
+		i++;
+	}
 	return (1);
 }

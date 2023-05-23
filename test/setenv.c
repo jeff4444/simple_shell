@@ -9,38 +9,36 @@
  */
 int _setenv(char **args, char **envp, char *argv, int count)
 {
-	char *init_value, *output;
+	char *name = args[1], *value = args[2];
+	char *init_value, *output, *init_name;
 	int i = 0, overwrite = 1;
-	size_t name_len, val_len;
 
-	(void)envp;
-	(void)argv;
-	(void)count;
-	if (args[1] == NULL || args[2] == NULL || args[1][0] == '\0')
+	UNUSED(envp);
+	UNUSED(argv);
+	UNUSED(count);
+	if (name == NULL || value == NULL || name[0] == '\0')
 	{
-		_printf("Error\n");
+		perror("Error\n");
 		return (1);
 	}
-	name_len = _strlen(args[1]);
-	val_len = _strlen(args[2]);
-	output = malloc(name_len + val_len + 2);
-
-	_strcpy(output, args[1]);
-	output[name_len] = '=';
-	_strcpy(output + name_len + 1, args[2]);
-	output[name_len + val_len + 1] = '\0';
-	init_value = malloc(_strlen(_getenv(args[1])) + 1);
-	_strcpy(init_value, _getenv(args[1]));
-
+	init_value = _getenv(name);
+	init_name = malloc(sizeof(name));
+	while (name[i] != '\0')
+	{
+		init_name[i] = name[i];
+		i++;
+	}
+	init_name[i] = '\0';
+	i = 0;
+	init_name = _strcat(init_name, "=");
+	output = _strcat(init_name, value);
 	if (!init_value || overwrite)
-		i = _putenv(args[1], output);
+		i = putenv(output);
 	if (i)
-		_printf("Error\n");
-	free(init_value);
-	free(output);
+		perror("Error\n");
+
 	return (1);
 }
-
 
 /**
  * _unsetenv - removes and environment variable
@@ -53,23 +51,55 @@ int _setenv(char **args, char **envp, char *argv, int count)
  */
 int _unsetenv(char **args, char **envp, char *argv, int count)
 {
-	char *name = malloc(_strlen(args[1]) + 2);
+	char *name = args[1];
 	int i;
 
-	(void)envp;
-	(void)argv;
-	(void)count;
-	if (args[1] == NULL || args[1][0] == '\0')
+	UNUSED(envp);
+	UNUSED(argv);
+	UNUSED(count);
+	if (name == NULL || name[0] == '\0')
 	{
-		_printf("Error\n");
+		printf("Error\n");
 		return (1);
 	}
-	_strcpy(name, args[1]);
-	_strcpy(name + _strlen(args[1]), "=");
-	name[_strlen(args[1]) + 1] = '\0';
-	i = _putenv(name, name);
+	_strcat(name, "=");
+	i = putenv(name);
 	if (i)
-		_printf("Error\n");
-	free(name);
+		printf("Error\n");
 	return (1);
 }
+
+/**
+ * _getenv - this gets the value of the global variable
+ * @name: name of the global variable
+ * Return: string of value
+ */
+char *_getenv(const char *name)
+{
+	int a, b;
+	char *val;
+
+	if (!name)
+		return (NULL);
+	for (a = 0; environ[a]; a++)
+	{
+		b = 0;
+		if (name[b] == environ[a][b])
+		{
+			while (name[b])
+			{
+				if (name[b] != environ[a][b])
+					break;
+
+				b++;
+			}
+			if (name[b] == '\0')
+			{
+				val = (environ[a] + b + 1);
+				return (val);
+			}
+		}
+	}
+	return (0);
+}
+

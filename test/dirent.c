@@ -20,16 +20,12 @@ int checkexe(char *s)
 		while ((dirent = readdir(dir)))
 		{
 			if (_strcmp(dirent->d_name, s))
-			{
-				closedir(dir);
 				return (1);
-			}
 		}
 	}
 	else
 	{
-		perror("Error! Could not find path");
+		_puts("Error! Could not find path");
 	}
-	closedir(dir);
 	return (0);
 }

@@ -3,16 +3,17 @@
  * _getline - getline function
  * @lineptr: line pointer
  * @n: size of lineptr
- * @stream: File stream to read from
+ * @fd: File stream to read from
  * Return: size read or -1 (Fail)
  */
-ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
+ssize_t _getline(char **lineptr, size_t *n, int fd)
 {
 	static char *buffer;
 	static size_t n_chars;
 	size_t i = 0;
-	int ch;
+	char ch;
 	static int p = 1;
+	ssize_t res;
 
 	if (buffer == NULL)
 	{
@@ -21,7 +22,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 		if (buffer == NULL)
 			return (-1);
 	}
-	while ((ch = fgetc(stream)) != EOF)
+	while ((res = read(fd, &ch, 1)) > 0)
 	{
 		if (ch == '\n')
 			break;
@@ -42,8 +43,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	*lineptr = buffer;
 	*n = n_chars;
 
-	if (ch == EOF && i == 0)
+	if (res <= 0 && i == 0)
 		return (-1);
-	else
-		return (i);
+	return (i);
 }
