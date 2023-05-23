@@ -10,48 +10,20 @@
  */
 int handle_cd(char **args, char **envp, char *argv, int count)
 {
-	char *dir = malloc(10), *oldpwd, cwd[1024], *use;
-	int i, j, k;
-
+	char* dir;
 	UNUSED(envp);
-	strcpy(dir, args[1]);
-	if (!getcwd(cwd, sizeof(cwd)))
-		perror("Failed to get Path\n");
-	oldpwd = malloc(sizeof(cwd));
-	strcpy(oldpwd, cwd);
-	if (_strcmp(dir, ""))
-	{
-		dir = getenv("HOME");
-		i = chdir(dir);
-	}
-	else if (_strcmp(dir, "-"))
-	{
-		dir = getenv("OLDPWD");
-		printf("%s\n", dir);
-		i = chdir(dir);
-	}
-	else if (_strcmp(dir, "~"))
-	{
-		dir = getenv("HOME");
-		i = chdir(dir);
-	}
-	else
-	{
-		i = chdir(dir);
-		use = strcat(cwd, "/");
-		dir = strcat(use, dir);
-	}
-	if (i == -1)
-	{
+
+    if (args[1] == NULL) {
+        dir = _getenv("HOME");
+    } else {
+        dir = args[1];
+    }
+
+    if (chdir(dir) == -1) {
+        perror("chdir");
 		printf("%s: %d: cd: can't cd to %s\n", argv, count, args[1]);
-		return (1);
-	}
-	if (_strcmp(args[1], "..") || _strcmp(args[1], "."))
-		j = setenv("PWD", getcwd(cwd, sizeof(cwd)), 1);
-	else
-		j = setenv("PWD", dir, 1);
-	k = setenv("OLDPWD", oldpwd, 1);
-	if (j == -1 || k == -1)
-		printf("Error");
-	return (1);
+        return (1);
+    }
+
+    return (0);
 }

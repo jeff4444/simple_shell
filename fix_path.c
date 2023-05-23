@@ -11,7 +11,7 @@ char *fix_path(char *filename)
 	int n = checkexe(filename);
 
 	if (n)
-		stringexe = strcat(add, filename);
+		stringexe = _strcat(add, filename);
 	else
 		stringexe = filename;
 	return (stringexe);
