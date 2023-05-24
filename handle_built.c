@@ -5,6 +5,8 @@
  * @envp: environment variables
  * @argv: contains name of run file
  * @count: count
+ * @reads: reads
+ * @read: read
  * Return: 1 (found) 0 (not found)
  */
 int handle_built(char **args, char **envp, char **argv, int count,

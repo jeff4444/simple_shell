@@ -5,7 +5,8 @@
  * @envp: environment variables
  * @av: command used to run file
  * @count: current count
- *
+ * @reads: reads
+ * @read: read
  * Return: int
  */
 int handle_exit(char **args, char **av, char **envp, int count,

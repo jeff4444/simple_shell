@@ -57,6 +57,8 @@ int main(int argc, char *argv[], char **envp)
  * @envp: environment variables
  * @argv: list of cmd line args
  * @count: count
+ * @reads: reads
+ * @reader: reader
  * Return: 0
  */
 int execute_read(char *read, char **envp, char **argv, int count,
