@@ -37,14 +37,14 @@ int main(int argc, char *argv[], char **envp)
 		}
 		reads[i] = NULL;
 		i = 0;
+		free(read_copy);
+		free(token);
 		while (reads[i])
 		{
-			execute_read(reads[i], envp, argv, count);
+			execute_read(reads[i], envp, argv, count, reads, read);
 			i++;
 		}
-		free(token);
 		free_args(reads);
-		free(read_copy);
 	}
 	free(read);
 	return (0);
@@ -59,7 +59,8 @@ int main(int argc, char *argv[], char **envp)
  * @count: count
  * Return: 0
  */
-int execute_read(char *read, char **envp, char **argv, int count)
+int execute_read(char *read, char **envp, char **argv, int count,
+		char **reads, char *reader)
 {
 	char **args = NULL, *stringexe;
 	pid_t i;
@@ -70,7 +71,7 @@ int execute_read(char *read, char **envp, char **argv, int count)
 	if (args == NULL)
 		return (0);
 	args = replace(args);
-	if (handle_built(args, envp, argv, count))
+	if (handle_built(args, envp, argv, count, reads, reader))
 	{
 		free_args(args);
 		return (0);

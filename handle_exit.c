@@ -8,7 +8,8 @@
  *
  * Return: int
  */
-int handle_exit(char **args, char **av, char **envp, int count)
+int handle_exit(char **args, char **av, char **envp, int count,
+		char **reads, char *read)
 {
 	int a;
 
@@ -16,6 +17,8 @@ int handle_exit(char **args, char **av, char **envp, int count)
 	if (args[1] == NULL || _strcmp(args[1], "0"))
 	{
 		free_args(args);
+		free(read);
+		free_args(reads);
 		exit(0);
 	}
 	a = _atoi(args[1]);
@@ -23,6 +26,8 @@ int handle_exit(char **args, char **av, char **envp, int count)
 	{
 		print_exit_error(av[0], count, args[1]);
 		free_args(args);
+		free(read);
+		free_args(reads);
 		return (1);
 	}
 	free_args(args);
