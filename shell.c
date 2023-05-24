@@ -121,12 +121,12 @@ int get_user_input(char **input)
 	size_t n = 0;
 
 	if (isatty(STDIN_FILENO))
-		write(STDOUT_FILENO, "$ ", 3);
+		write(STDOUT_FILENO, "$ ", 2);
 	n_chars = _getline(input, &n, STDIN_FILENO);
 	if (n_chars == -1)
 	{
 		if (isatty(STDIN_FILENO))
-			write(STDOUT_FILENO, "\n", 2);
+			write(STDOUT_FILENO, "\n", 1);
 		return (0);
 	}
 	return (1);
