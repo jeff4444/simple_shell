@@ -31,6 +31,8 @@ int handle_exit(char **args, char **av, char **envp, int count,
 		free_args(reads);
 		return (1);
 	}
+	free_args(reads);
+	free(read);
 	free_args(args);
 	exit(a);
 }
