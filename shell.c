@@ -83,6 +83,7 @@ int execute_read(char *read, char **envp, char **argv, int count,
 	{
 		/* perror(argv[0]); */
 		command_not_found(argv[0], count, args[0]);
+		free(stringexe);
 		free_args(args);
 		return (0);
 	}
