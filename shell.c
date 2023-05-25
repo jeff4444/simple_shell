@@ -125,7 +125,7 @@ int get_user_input(char **input)
 
 	if (isatty(STDIN_FILENO))
 		write(STDOUT_FILENO, "$ ", 2);
-	n_chars = _getline(input, &n, STDIN_FILENO);
+	n_chars = getline(input, &n, STDIN_FILENO);
 	if (n_chars == -1)
 	{
 		if (isatty(STDIN_FILENO))
