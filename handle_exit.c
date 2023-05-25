@@ -28,12 +28,18 @@ int handle_exit(char **args, char **av, char **envp, int count,
 	{
 		child = fork();
 		if (child == 0)
+		{
+			print_exit_error(av[0], count, args[1]);
+			free_args(args);
+			free_args(reads);
+			free(read);
 			exit(2);
+		}
 		else
 		{
 			waitpid(child, &child_stat, 0);
-			print_exit_error(av[0], count, args[1]);
-			free_args(args);
+			if (WIFEXITED(child_stat))
+				WEXITSTATUS(child_stat);
 			return (0);
 		}
 	}
