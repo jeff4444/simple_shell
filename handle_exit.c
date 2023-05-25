@@ -23,13 +23,13 @@ int handle_exit(char **args, char **av, char **envp, int count,
 		exit(0);
 	}
 	a = _atoi(args[1]);
-	if (a == 0)
+	if (a <= 0)
 	{
 		print_exit_error(av[0], count, args[1]);
 		free_args(args);
 		free(read);
 		free_args(reads);
-		return (1);
+		exit(2);
 	}
 	free_args(reads);
 	free(read);
