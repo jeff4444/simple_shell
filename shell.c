@@ -70,8 +70,11 @@ int execute_read(char *read, char **envp, char **argv, int count,
 	int swait;
 
 	args = tokenise(read);
-	if (args == NULL)
+	if (args == NULL || args[0] == NULL)
+	{
+		free_args(args);
 		return (0);
+	}
 	args = replace(args);
 	if (handle_built(args, envp, argv, count, reads, reader))
 	{
