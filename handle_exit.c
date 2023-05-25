@@ -12,7 +12,8 @@
 int handle_exit(char **args, char **av, char **envp, int count,
 		char **reads, char *read)
 {
-	int a;
+	int a, child_stat;
+	pid_t child;
 
 	(void)envp;
 	if (args[1] == NULL || _strcmp(args[1], "0"))
@@ -25,11 +26,16 @@ int handle_exit(char **args, char **av, char **envp, int count,
 	a = _atoi(args[1]);
 	if (a <= 0)
 	{
-		print_exit_error(av[0], count, args[1]);
-		free_args(args);
-		free(read);
-		free_args(reads);
-		exit(2);
+		child = fork();
+		if (child == 0)
+			exit(2);
+		else
+		{
+			waitpid(child, &child_stat, 0);
+			print_exit_error(av[0], count, args[1]);
+			free_args(args);
+			return (0);
+		}
 	}
 	free_args(reads);
 	free(read);
