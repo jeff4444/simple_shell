@@ -18,7 +18,6 @@ int _setenv(char **args, char **envp, char *argv, int count)
 	(void)count;
 	if (args[1] == NULL || args[2] == NULL || args[1][0] == '\0')
 	{
-		_puts("Error\n");
 		return (1);
 	}
 	name_len = _strlen(args[1]);
